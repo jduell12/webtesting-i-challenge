@@ -24,7 +24,14 @@ function success(item) {
 }
 
 function fail(item) {
-  if (item.enhancement < 15) {
+  if (
+    item.durability < 0 ||
+    item.enhancement < 0 ||
+    item.durability > 100 ||
+    item.enhancement > 20
+  ) {
+    return item;
+  } else if (item.enhancement < 15) {
     return { ...item, durability: item.durability - 5 };
   } else if (item.enhancement >= 15) {
     if (item.enhancement > 16) {
@@ -53,7 +60,14 @@ function repair(item) {
 }
 
 function get(item) {
-  if (item.enhancement === 0) {
+  if (
+    item.durability < 0 ||
+    item.enhancement < 0 ||
+    item.durability > 100 ||
+    item.enhancement > 20
+  ) {
+    return item;
+  } else if (item.enhancement === 0) {
     return { ...item };
   } else if (item.enhancement > 0) {
     const enhancement = item.enhancement;
