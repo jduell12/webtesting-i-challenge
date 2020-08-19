@@ -50,8 +50,8 @@ function repair(item) {
   if (
     item.durability < 0 ||
     item.enhancement < 0 ||
-    item.enhancement > 20 ||
-    item.durability > 100
+    item.enhancement >= 20 ||
+    item.durability >= 100
   ) {
     return item;
   } else {
@@ -63,8 +63,8 @@ function get(item) {
   if (
     item.durability < 0 ||
     item.enhancement < 0 ||
-    item.durability > 100 ||
-    item.enhancement > 20
+    item.durability >= 100 ||
+    item.enhancement >= 20
   ) {
     return item;
   } else if (item.enhancement === 0) {
