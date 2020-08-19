@@ -116,3 +116,32 @@ describe("fail enhancement", () => {
     expect(enhancer.fail(item)).not.toEqual({});
   });
 });
+
+describe("get method", () => {
+  it("does not change item name if the enhancement level is 0", () => {
+    const item = {
+      name: "sword",
+      durability: 80,
+      enhancement: 0,
+    };
+    expect(enhancer.get(item)).toEqual(item);
+  });
+
+  it("changes the name to include the enhancement level in brackets with a +, ex. sword => [+7]sword", () => {
+    const item = {
+      name: "sword",
+      durability: 80,
+      enhancement: 1,
+    };
+
+    const expectedItem = {
+      name: "[+1] sword",
+      durability: 80,
+      enhancement: 1,
+    };
+
+    expect(enhancer.get(item)).toEqual(expectedItem);
+    expect(enhancer.get(item)).not.toEqual(item);
+    expect(enhancer.get(item)).not.toEqual({});
+  });
+});
