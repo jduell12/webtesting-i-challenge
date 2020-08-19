@@ -21,7 +21,7 @@ describe("repair an item", () => {
 });
 
 describe("success enhancement", () => {
-  it("returns a new item with enhancement increased by 1", () => {
+  it("returns a new item with enhancement increased by 1 and durability unchanged", () => {
     const expectedItm = {
       name: "sword",
       durability: 80,
@@ -31,7 +31,7 @@ describe("success enhancement", () => {
     expect(enhancer.success(item)).not.toEqual(item);
   });
 
-  it("does not change enhancement level when the original item's enhancement is 20", () => {
+  it("does not change enhancement level when the original item's enhancement is 20 or durability ", () => {
     const item = {
       name: "sword",
       durability: 80,
