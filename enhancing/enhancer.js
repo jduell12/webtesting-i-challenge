@@ -6,7 +6,12 @@ module.exports = {
 };
 
 function success(item) {
-  if (item.durability < 0 || item.enhancement < 0) {
+  if (
+    item.durability < 0 ||
+    item.enhancement < 0 ||
+    item.durability > 100 ||
+    item.enhancement > 20
+  ) {
     return item;
   } else {
     return {
