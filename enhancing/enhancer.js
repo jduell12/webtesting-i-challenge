@@ -6,12 +6,16 @@ module.exports = {
 };
 
 function success(item) {
-  return {
-    ...item,
-    //checks if enhancement of item is at 20
-    enhancement:
-      item.enhancement === 20 ? item.enhancement : item.enhancement + 1,
-  };
+  if (item.durability < 0 || item.enhancement < 0) {
+    return item;
+  } else {
+    return {
+      ...item,
+      //checks if enhancement of item is at 20
+      enhancement:
+        item.enhancement === 20 ? item.enhancement : item.enhancement + 1,
+    };
+  }
 }
 
 function fail(item) {
@@ -31,7 +35,12 @@ function fail(item) {
 }
 
 function repair(item) {
-  if (item.durability < 0 || item.enhancement < 0) {
+  if (
+    item.durability < 0 ||
+    item.enhancement < 0 ||
+    item.enhancement > 20 ||
+    item.durability > 100
+  ) {
     return item;
   } else {
     return { ...item, durability: 100 };
