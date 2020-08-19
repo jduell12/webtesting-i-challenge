@@ -20,7 +20,7 @@ describe("repair an item", () => {
   });
 });
 
-describe("success on an item", () => {
+describe("success enhancement", () => {
   it("returns a new item with enhancement increased by 1", () => {
     const expectedItm = {
       name: "sword",
@@ -39,5 +39,80 @@ describe("success on an item", () => {
     };
 
     expect(enhancer.success(item)).toEqual(item);
+    expect(enhancer.success(item)).not.toEqual({
+      name: "sword",
+      durability: 80,
+      enhancement: 21,
+    });
+  });
+});
+
+describe("fail enhancement", () => {
+  it("original item has enhancement less than 15, returns a new item with durability decreased by 5", () => {
+    const item = {
+      name: "sword",
+      durability: 80,
+      enhancement: 14,
+    };
+    const expectedItem = {
+      name: "sword",
+      durability: 75,
+      enhancement: 14,
+    };
+
+    expect(enhancer.fail(item)).toEqual(expectedItem);
+    expect(enhancer.fail(item)).not.toEqual(item);
+    expect(enhancer.fail(item)).not.toEqual({});
+  });
+
+  it("original item has enhancement is 15 or more and returns a new item with durability decreased by 10", () => {
+    const item = {
+      name: "sword",
+      durability: 80,
+      enhancement: 15,
+    };
+    const expectedItem = {
+      name: "sword",
+      durability: 70,
+      enhancement: 15,
+    };
+
+    expect(enhancer.fail(item)).toEqual(expectedItem);
+    expect(enhancer.fail(item)).not.toEqual(item);
+    expect(enhancer.fail(item)).not.toEqual({});
+  });
+
+  it("original item has enhancement of more than 16 and returns a new item with durability decreased by 10 and enhancement decreased by 1", () => {
+    const item = {
+      name: "sword",
+      durability: 80,
+      enhancement: 17,
+    };
+    const expectedItem = {
+      name: "sword",
+      durability: 70,
+      enhancement: 16,
+    };
+
+    expect(enhancer.fail(item)).toEqual(expectedItem);
+    expect(enhancer.fail(item)).not.toEqual(item);
+    expect(enhancer.fail(item)).not.toEqual({});
+  });
+
+  it("item has enhancement of 16 and only durability is decreased", () => {
+    const item = {
+      name: "sword",
+      durability: 80,
+      enhancement: 16,
+    };
+    const expectedItem = {
+      name: "sword",
+      durability: 70,
+      enhancement: 16,
+    };
+
+    expect(enhancer.fail(item)).toEqual(expectedItem);
+    expect(enhancer.fail(item)).not.toEqual(item);
+    expect(enhancer.fail(item)).not.toEqual({});
   });
 });
