@@ -7,6 +7,34 @@ const item = {
 };
 
 describe("repair an item", () => {
+  it("does not affect items with less than 0 for durability", () => {
+    const item = {
+      name: "sword",
+      durability: -1,
+      enhancement: 2,
+    };
+
+    expect(enhancer.repair(item)).toEqual(item);
+  });
+
+  it("does not affect items with less than 0 for enhancement", () => {
+    const item = {
+      name: "sword",
+      durability: 2,
+      enhancement: -2,
+    };
+    expect(enhancer.repair(item)).toEqual(item);
+  });
+
+  it("does not affect items with less than 0 for enhancement or durability", () => {
+    const item = {
+      name: "sword",
+      durability: -2,
+      enhancement: -2,
+    };
+    expect(enhancer.repair(item)).toEqual(item);
+  });
+
   it("returns a new item with durability restored to 100", () => {
     const expectedItem = {
       name: "sword",
