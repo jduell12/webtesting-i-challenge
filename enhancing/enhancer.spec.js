@@ -164,6 +164,66 @@ describe("success enhancement", () => {
 });
 
 describe("fail enhancement", () => {
+  it("does not affect an item with less than 0 for durability", () => {
+    const item = {
+      name: "sword",
+      durability: -18,
+      enhancement: 126,
+    };
+
+    expect(enhancer.success(item)).toEqual(item);
+  });
+
+  it("does not affect an item with less than 0 for enhancement", () => {
+    const item = {
+      name: "sword",
+      durability: 18,
+      enhancement: -126,
+    };
+
+    expect(enhancer.success(item)).toEqual(item);
+  });
+
+  it("does not affect an item with less than 0 for durability or enhancement", () => {
+    const item = {
+      name: "sword",
+      durability: -18,
+      enhancement: -126,
+    };
+
+    expect(enhancer.success(item)).toEqual(item);
+  });
+
+  it("does not affect an item with durability greater than 100", () => {
+    const item = {
+      name: "sword",
+      durability: 118,
+      enhancement: 15,
+    };
+
+    expect(enhancer.success(item)).toEqual(item);
+  });
+
+  it("does not affect an item with enhancement greater than 20", () => {
+    const item = {
+      name: "sword",
+      durability: 18,
+      enhancement: 215,
+    };
+
+    expect(enhancer.success(item)).toEqual(item);
+  });
+
+  it("does not affect an item with durability greater than 100 or enhancement greater than 20", () => {
+    const item = {
+      name: "sword",
+      durability: 118,
+      enhancement: 215,
+    };
+
+    expect(enhancer.success(item)).toEqual(item);
+  });
+
   it("original item has enhancement less than 15, returns a new item with durability decreased by 5", () => {
     const item = {
       name: "sword",
